@@ -1,12 +1,15 @@
 package edu.temple.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import edu.temple.activities.R.id.textSizeSelectorButton
 
 class TextSizeActivity : AppCompatActivity() {
 
@@ -23,11 +26,22 @@ class TextSizeActivity : AppCompatActivity() {
         with (findViewById(R.id.textSizeSelectorRecyclerView) as RecyclerView) {
 
             // TODO Step 2: Pass selected value back to activity that launched TextSizeActivity
-            adapter = TextSizeAdapter(textSizes){
-
+            adapter = TextSizeAdapter(textSizes){size ->
+                val resultIntent = Intent(this@TextSizeActivity,DisplayActivity::class.java)
+                resultIntent.putExtra("fontSize", size.toFloat())
+//                startActivity(resultIntent)
+                setResult(RESULT_OK, resultIntent)
+                finish()
             }
+
             layoutManager = LinearLayoutManager(this@TextSizeActivity)
         }
+
+//        findViewById<Button>(textSizeSelectorButton).setOnClickListener {
+//            setResult(RESULT_OK, Intent().putExtra("Reply", "Here is my result"))
+//
+//            finish()
+//        }
 
 
 
